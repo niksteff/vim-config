@@ -22,6 +22,7 @@ set pastetoggle=<F2>
 
 " Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
 " set textwidth=79
+set t_Co=256              " Use 256 colors
 set colorcolumn=80
 set formatoptions=tcqrn1
 set tabstop=4
@@ -29,6 +30,17 @@ set shiftwidth=2
 set softtabstop=4
 set expandtab
 set noshiftround
+set splitbelow            " Splits show up below by default
+set splitright            " Splits go to the right by default
+set title                 " Set the title for gvim
+set ruler                 " Show the line number and column in the status bar
+
+" Customize session options. Namely, I don't want to save hidden and
+" unloaded buffers or empty windows.
+set sessionoptions="curdir,folds,help,options,tabpages,winsize"
+
+" GUI settings
+colorscheme onehalfdark
 
 " This is required to force 24-bit color since I use a modern terminal.
 set termguicolors
