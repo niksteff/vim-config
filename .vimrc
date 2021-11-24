@@ -130,8 +130,8 @@ map  <C-n> :tabnew<CR>
 let NERDTreeShowHidden=1
 set mouse=a
 set guioptions=0
-# colorscheme gruvbox
-#set bg=dark
+"colorscheme gruvbox
+"set bg=dark
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
