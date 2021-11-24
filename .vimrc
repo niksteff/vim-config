@@ -22,12 +22,36 @@ set pastetoggle=<F2>
 
 " Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
 " set textwidth=79
+set colorcolumn=80
 set formatoptions=tcqrn1
 set tabstop=4
 set shiftwidth=2
 set softtabstop=4
 set expandtab
 set noshiftround
+
+" This is required to force 24-bit color since I use a modern terminal.
+set termguicolors
+
+if !has("gui_running")
+    " vim hardcodes background color erase even if the terminfo file does
+    " not contain bce (not to mention that libvte based terminals
+    " incorrectly contain bce in their terminfo files). This causes
+    " incorrect background rendering when using a color theme with a
+    " background color.
+    "
+    " see: https://github.com/kovidgoyal/kitty/issues/108
+    let &t_ut=''
+endif
+
+" Make j/k visual down and up instead of whole lines. This makes word
+" wrapping a lot more pleasent.
+map j gj
+map k gk
+
+" Shortcut to yanking to the system clipboard
+map <leader>y "+y
+map <leader>p "+p
 
 " Display 5 lines above/below the cursor when scrolling with a mouse.
 set scrolloff=5
@@ -76,6 +100,14 @@ set smartcase
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
+" Backup settings
+execute "set directory=" . g:vim_home_path . "/swap"
+execute "set backupdir=" . g:vim_home_path . "/backup"
+execute "set undodir=" . g:vim_home_path . "/undo"
+set backup
+set undofile
+set writebackup
+
 " Map the <Space> key to toggle a selected fold opened/closed.
 set foldmethod=syntax
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -98,8 +130,8 @@ map  <C-n> :tabnew<CR>
 let NERDTreeShowHidden=1
 set mouse=a
 set guioptions=0
-colorscheme gruvbox
-set bg=dark
+# colorscheme gruvbox
+#set bg=dark
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
