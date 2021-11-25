@@ -1,6 +1,30 @@
 " Set compatibility to Vim only.
 set nocompatible
 
+" Specify a directory for plugins
+call plug#begin()
+" install onehalf theme
+" https://github.com/sonph/onehalf/blob/master/vim/README.md
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+" install dracula theme
+" https://draculatheme.com/vim
+Plug 'dracula/vim', { 'as': 'dracula' }
+" install NERDTree file browser 
+" https://github.com/preservim/nerdtree
+Plug 'preservim/nerdtree'
+" install vim-go pkg 
+" https://github.com/fatih/vim-go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" install the vim-markdown pkg 
+" https://github.com/plasticboy/vim-markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+" install ycm code completion helper
+" https://vimawesome.com/plugin/youcompleteme-thing-itself
+Plug 'oblitum/youcompleteme'
+" Initialize plugin system
+call plug#end()
+
 " Helps force plug-ins to load correctly when it is turned back on below.
 filetype off
 
@@ -89,7 +113,7 @@ set matchpairs+=<:>
 
 " Display different types of white spaces.
 set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+set listchars=tab:>\ ,trail:•,extends:#,nbsp:.
 
 " Show line numbers
 set number
@@ -113,6 +137,7 @@ set smartcase
 set viminfo='100,<9999,s100
 
 " Backup settings
+let g:vim_home_path = "~/.vim" " this is a default on local systems a link should be created to the repo on vms this is fine
 execute "set directory=" . g:vim_home_path . "/swap"
 execute "set backupdir=" . g:vim_home_path . "/backup"
 execute "set undodir=" . g:vim_home_path . "/undo"
