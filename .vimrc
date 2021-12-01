@@ -1,30 +1,49 @@
 " Set compatibility to Vim only.
-set nocompatible
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Specify a directory for plugins
-call plug#begin()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" Plugin for code completion for go, python, c, rust ...
+" https://vimawesome.com/plugin/youcompleteme-thing-itself
+Plugin 'ycm-core/YouCompleteMe'
 " install onehalf theme
 " https://github.com/sonph/onehalf/blob/master/vim/README.md
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plugin 'sonph/onehalf', { 'rtp': 'vim' }
 " install dracula theme
 " https://draculatheme.com/vim
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plugin 'dracula/vim', { 'as': 'dracula' }
 " install NERDTree file browser 
 " https://github.com/preservim/nerdtree
-Plug 'preservim/nerdtree'
+Plugin 'preservim/nerdtree'
 " install vim-go pkg 
 " https://github.com/fatih/vim-go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " install the vim-markdown pkg 
 " https://github.com/plasticboy/vim-markdown
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-" install ycm code completion helper
-" https://vimawesome.com/plugin/youcompleteme-thing-itself
-Plug 'oblitum/youcompleteme'
-" Initialize plugin system
-call plug#end()
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"
+"
 " Helps force plug-ins to load correctly when it is turned back on below.
 filetype off
 
@@ -106,13 +125,13 @@ set showcmd
 
 " Set the CursorHold updatetime to 2 sec to e.g. display documentation
 " overlays faster
-set updatetime=2000
+set updatetime=500
 
 " Highlight matching pairs of brackets. Use the '%' character to jump between them.
 set matchpairs+=<:>
 
 " Display different types of white spaces.
-set list
+"set list
 set listchars=tab:>\ ,trail:•,extends:#,nbsp:.
 
 " Show line numbers
@@ -193,6 +212,25 @@ let g:go_debug_windows = {
     \ 'stack':      'rightbelow 10new',
 \ }
 
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_auto_sameids = 1 " highlight matching identifiers
+" use gometalinter as a linter that calls vet golint and errcheck
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave = 1
+" set a shortcut for go-info to \i
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+" set an auto display of the identifier the cursor is on
+let g:go_auto_type_info = 1
 " enable folding for go 
 let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 
